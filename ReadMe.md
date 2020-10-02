@@ -1,5 +1,7 @@
 # Flock simulation
 
+[![The result](https://img.youtube.com/vi/JtMNLR3HhtA/0.jpg)](https://www.youtube.com/watch?v=JtMNLR3HhtA)
+
 Based on these rules: https://www.red3d.com/cwr/boids/
 
 ## Rules
