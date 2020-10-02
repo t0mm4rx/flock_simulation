@@ -31,6 +31,7 @@ class Particule {
 		this.separation();
 		this.alignment();
 		this.cohesion();
+		this.obstacle();
 		this.acceleration.limit(this.MAX_ACCELERATION);
 		this.acceleration.mult(1 / this.MASS);
 		this.velocity.add(this.acceleration);
@@ -80,12 +81,24 @@ class Particule {
 		}
 	}
 
+	obstacle() {
+		for (let o of obstacles) {
+			const d = dist(o.position.x, o.position.y, this.position.x, this.position.y);
+			if (d < 150) {
+				const vec = createVector(this.position.x - o.position.x, this.position.y - o.position.y);
+				if (d !== 0)
+					vec.mult(30 / d);
+				this.acceleration.add(vec);
+			}
+		}
+	}
+
 	alignment() {
 		if (this.neighbours.length === 0)
 			return;
 		let mean_velocity = createVector(0, 0);
 		for (let n of this.neighbours)
-			mean_velocity.add(n.velocity/*.copy().normalize()*/);
+			mean_velocity.add(n.velocity);
 		if (this.neighbours.length !== 0)
 			mean_velocity.div(this.neighbours.length);
 		let force = p5.Vector.sub(mean_velocity, this.velocity);
